@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Style Synth AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Background -->
+  <div class="background-glow glow-one"></div>
+  <div class="background-glow glow-two"></div>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+
+    <div class="brand">
+      <div class="brand-mark">S</div>
+      <div>
+        <h1>STYLE SYNTH</h1>
+        <span>AI PERSONAL STYLIST</span>
+      </div>
+    </div>
+
+    <nav>
+      <button class="nav-btn active" data-page="home">Home</button>
+      <button class="nav-btn" data-page="wardrobe">Wardrobe</button>
+      <button class="nav-btn" data-page="color">Color Studio</button>
+      <button class="nav-btn" data-page="stylist">AI Stylist</button>
+    </nav>
+
+    <button class="profile-button" onclick="showPage('profile')">
+      <span>SS</span>
+    </button>
+
+  </header>
+
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- ================= HOME ================= -->
+
+    <section id="home" class="page active-page">
+
+      <div class="hero">
+
+        <div class="hero-copy">
+
+          <p class="eyebrow">YOUR PERSONAL STYLE INTELLIGENCE</p>
+
+          <h2>
+            Dress with
+            <span>intention.</span>
+          </h2>
+
+          <p class="hero-description">
+            Style Synth AI transforms your wardrobe into personalized
+            outfits using color harmony, occasion intelligence and your
+            individual style profile.
+          </p>
+
+          <div class="hero-actions">
+            <button class="gold-button" onclick="showPage('stylist')">
+              ✦ Analyze My Style
+            </button>
+
+            <button class="outline-button" onclick="showPage('wardrobe')">
+              Open Wardrobe
+            </button>
+          </div>
+
+          <div class="hero-stats">
+            <div>
+              <strong id="wardrobeCount">0</strong>
+              <span>Wardrobe Items</span>
+            </div>
+
+            <div>
+              <strong>∞</strong>
+              <span>Outfit Ideas</span>
+            </div>
+
+            <div>
+              <strong>AI</strong>
+              <span>Style Intelligence</span>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="hero-fashion-card">
+
+          <div class="fashion-orbit orbit-one"></div>
+          <div class="fashion-orbit orbit-two"></div>
+
+          <div class="fashion-center">
+            <span>STYLE</span>
+            <strong>SYNTH</strong>
+            <small>AI</small>
+          </div>
+
+          <div class="floating-tag tag-one">
+            <span>01</span>
+            Color Harmony
+          </div>
+
+          <div class="floating-tag tag-two">
+            <span>02</span>
+            Wardrobe AI
+          </div>
+
+          <div class="floating-tag tag-three">
+            <span>03</span>
+            Personal Style
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="section-title">
+        <div>
+          <p class="eyebrow">EXPLORE</p>
+          <h3>Your Style Universe</h3>
+        </div>
+      </div>
+
+
+      <div class="feature-grid">
+
+        <article class="feature-card" onclick="showPage('wardrobe')">
+          <div class="feature-icon">♢</div>
+          <h4>Digital Wardrobe</h4>
+          <p>
+            Store your shirts, pants, shoes and accessories
+            in one intelligent wardrobe.
+          </p>
+          <span>Explore →</span>
+        </article>
+
+        <article class="feature-card" onclick="showPage('color')">
+          <div class="feature-icon">◉</div>
+          <h4>Color Studio</h4>
+          <p>
+            Discover complementary, analogous and monochromatic
+            outfit combinations.
+          </p>
+          <span>Explore →</span>
+        </article>
+
+        <article class="feature-card" onclick="showPage('stylist')">
+          <div class="feature-icon">✦</div>
+          <h4>AI Stylist</h4>
+          <p>
+            Upload your photo and receive a personalized
+            style profile.
+          </p>
+          <span>Explore →</span>
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= WARDROBE ================= -->
+
+    <section id="wardrobe" class="page">
+
+      <div class="page-heading">
+
+        <div>
+          <p class="eyebrow">YOUR COLLECTION</p>
+          <h2>Digital Wardrobe</h2>
+          <p>
+            Build your personal fashion database.
+          </p>
+        </div>
+
+        <button class="gold-button" onclick="openWardrobeModal()">
+          + Add Item
+        </button>
+
+      </div>
+
+
+      <div class="wardrobe-toolbar">
+
+        <div class="category-tabs">
+
+          <button class="category active" onclick="filterWardrobe('all', this)">
+            All
+          </button>
+
+          <button class="category" onclick="filterWardrobe('top', this)">
+            Tops
+          </button>
+
+          <button class="category" onclick="filterWardrobe('bottom', this)">
+            Bottoms
+          </button>
+
+          <button class="category" onclick="filterWardrobe('shoes', this)">
+            Shoes
+          </button>
+
+          <button class="category" onclick="filterWardrobe('accessory', this)">
+            Accessories
+          </button>
+
+        </div>
+
+        <input
+          class="search-input"
+          id="wardrobeSearch"
+          placeholder="Search wardrobe..."
+          oninput="renderWardrobe()"
+        >
+
+      </div>
+
+
+      <div id="wardrobeGrid" class="wardrobe-grid">
+
+        <div class="empty-state" id="emptyWardrobe">
+          <div class="empty-icon">◇</div>
+          <h3>Your wardrobe is waiting.</h3>
+          <p>
+            Add your first shirt, pants, shoes or accessory.
+          </p>
+          <button class="gold-button" onclick="openWardrobeModal()">
+            Add First Item
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= COLOR STUDIO ================= -->
+
+    <section id="color" class="page">
+
+      <div class="page-heading">
+
+        <div>
+          <p class="eyebrow">COLOR INTELLIGENCE</p>
+          <h2>Color Studio</h2>
+          <p>
+            Build outfits using color harmony.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="color-layout">
+
+        <div class="color-wheel-card">
+
+          <div class="color-wheel">
+
+            <div class="wheel-center">
+              <span id="selectedColorName">GOLD</span>
+              <small id="selectedHex">#C7A35A</small>
+            </div>
+
+          </div>
+
+          <div class="color-selector">
+
+            <label>Select your main color</label>
+
+            <input
+              type="color"
+              id="colorPicker"
+              value="#C7A35A"
+              onchange="updateColor(this.value)"
+            >
+
+            <div class="color-value">
+              <span id="colorPreview"></span>
+              <span id="hexValue">#C7A35A</span>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="harmony-panel">
+
+          <p class="eyebrow">HARMONY SYSTEM</p>
+          <h3>Choose a Color Relationship</h3>
+
+          <div class="harmony-options">
+
+            <button
+              class="harmony active"
+              onclick="selectHarmony('Complementary', this)">
+              <span class="harmony-dots complementary"></span>
+              Complementary
+            </button>
+
+            <button
+              class="harmony"
+              onclick="selectHarmony('Analogous', this)">
+              <span class="harmony-dots analogous"></span>
+              Analogous
+            </button>
+
+            <button
+              class="harmony"
+              onclick="selectHarmony('Monochromatic', this)">
+              <span class="harmony-dots monochromatic"></span>
+              Monochromatic
+            </button>
+
+            <button
+              class="harmony"
+              onclick="selectHarmony('Triadic', this)">
+              <span class="harmony-dots triadic"></span>
+              Triadic
+            </button>
+
+          </div>
+
+
+          <div class="suggested-colors">
+
+            <div class="suggested-color">
+              <span style="background:#1D3557"></span>
+              Navy
+            </div>
+
+            <div class="suggested-color">
+              <span style="background:#F4EDE1"></span>
+              Ivory
+            </div>
+
+            <div class="suggested-color">
+              <span style="background:#5C4033"></span>
+              Brown
+            </div>
+
+            <div class="suggested-color">
+              <span style="background:#6B705C"></span>
+              Olive
+            </div>
+
+          </div>
+
+
+          <button class="gold-button full-button" onclick="generateOutfit()">
+            ✦ Generate Outfit
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="generated-outfit" id="generatedOutfit">
+
+        <div class="outfit-placeholder">
+          <div>✦</div>
+          <h3>Your outfit will appear here</h3>
+          <p>
+            Choose a color harmony and generate your look.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= AI STYLIST ================= -->
+
+    <section id="stylist" class="page">
+
+      <div class="page-heading">
+
+        <div>
+          <p class="eyebrow">PERSONAL STYLE INTELLIGENCE</p>
+          <h2>AI Stylist</h2>
+          <p>
+            Let Style Synth understand your visual style.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="stylist-layout">
+
+        <div class="upload-card">
+
+          <div class="upload-icon">✦</div>
+
+          <h3>Upload Your Full-Body Photo</h3>
+
+          <p>
+            Use a clear photo where your face and outfit
+            are visible.
+          </p>
+
+          <input
+            type="file"
+            id="bodyPhoto"
+            accept="image/*"
+            hidden
+            onchange="previewBodyPhoto(event)"
+          >
+
+          <label for="bodyPhoto" class="upload-button">
+            Choose Photo
+          </label>
+
+          <div id="bodyPreview" class="body-preview">
+          </div>
+
+          <button
+            class="gold-button full-button"
+            onclick="analyzeStyle()">
+            ✦ Analyze My Style
+          </button>
+
+        </div>
+
+
+        <div class="style-profile" id="styleProfile">
+
+          <div class="profile-placeholder">
+
+            <div class="profile-symbol">◈</div>
+
+            <h3>Your Style Profile</h3>
+
+            <p>
+              Upload your full-body photo to generate
+              your personalized style profile.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="chat-card">
+
+        <div class="chat-header">
+
+          <div class="ai-avatar">✦</div>
+
+          <div>
+            <strong>Style Synth AI</strong>
+            <span>Personal Fashion Assistant</span>
+          </div>
+
+          <div class="online-dot"></div>
+
+        </div>
+
+
+        <div id="chatMessages" class="chat-messages">
+
+          <div class="message ai-message">
+            Welcome. I'm your Style Synth AI assistant.
+            Ask me anything about your wardrobe or style.
+          </div>
+
+        </div>
+
+
+        <div class="chat-input">
+
+          <input
+            id="chatInput"
+            placeholder="Ask your AI stylist..."
+            onkeydown="handleChatKey(event)"
+          >
+
+          <button onclick="sendMessage()">↑</button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= PROFILE ================= -->
+
+    <section id="profile" class="page">
+
+      <div class="page-heading">
+
+        <div>
+          <p class="eyebrow">YOUR IDENTITY</p>
+          <h2>Style Profile</h2>
+        </div>
+
+      </div>
+
+      <div class="profile-card-large">
+
+        <div class="profile-avatar-large">
+          SS
+        </div>
+
+        <div>
+          <p class="eyebrow">STYLE SYNTH MEMBER</p>
+          <h3>Your Personal Style</h3>
+          <p>
+            Your profile will evolve as you add wardrobe
+            pieces and interact with your AI stylist.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================= WARDROBE MODAL ================= -->
+
+  <div class="modal-overlay" id="wardrobeModal">
+
+    <div class="modal">
+
+      <button class="close-modal" onclick="closeWardrobeModal()">×</button>
+
+      <p class="eyebrow">NEW WARDROBE PIECE</p>
+      <h2>Add to Wardrobe</h2>
+
+      <form id="wardrobeForm" onsubmit="addWardrobeItem(event)">
+
+        <div class="image-upload">
+
+          <input
+            type="file"
+            id="itemImage"
+            accept="image/*"
+            onchange="previewItemImage(event)"
+          >
+
+          <div id="itemImagePreview">
+            <span>+</span>
+            <p>Upload clothing photo</p>
+          </div>
+
+        </div>
+
+
+        <div class="form-grid">
+
+          <div class="form-field">
+
+            <label>What kind of cloth?</label>
+
+            <select id="itemType" required>
+
+              <option value="">Select type</option>
+
+              <option value="top">T-Shirt</option>
+              <option value="top">Shirt</option>
+              <option value="top">Polo</option>
+              <option value="top">Jacket</option>
+              <option value="top">Hoodie</option>
+
+              <option value="bottom">Jeans</option>
+              <option value="bottom">Trousers</option>
+              <option value="bottom">Chinos</option>
+              <option value="bottom">Shorts</option>
+
+              <option value="shoes">Sneakers</option>
+              <option value="shoes">Loafers</option>
+              <option value="shoes">Boots</option>
+
+              <option value="accessory">Watch</option>
+              <option value="accessory">Belt</option>
+              <option value="accessory">Bag</option>
+              <option value="accessory">Sunglasses</option>
+              <option value="accessory">Jewelry</option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-field">
+
+            <label>Color</label>
+
+            <input
+              type="color"
+              id="itemColor"
+              value="#111111"
+            >
+
+          </div>
+
+
+          <div class="form-field">
+
+            <label>Occasion</label>
+
+            <select id="itemOccasion">
+
+              <option>Casual</option>
+              <option>Smart Casual</option>
+              <option>Office</option>
+              <option>Formal</option>
+              <option>Party</option>
+              <option>Date</option>
+              <option>Wedding</option>
+              <option>Travel</option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-field">
+
+            <label>Brand</label>
+
+            <input
+              type="text"
+              id="itemBrand"
+              placeholder="e.g. Zara"
+            >
+
+          </div>
+
+
+          <div class="form-field">
+
+            <label>Material</label>
+
+            <select id="itemMaterial">
+
+              <option>Cotton</option>
+              <option>Linen</option>
+              <option>Denim</option>
+              <option>Wool</option>
+              <option>Leather</option>
+              <option>Polyester</option>
+              <option>Unknown</option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-field">
+
+            <label>Pattern</label>
+
+            <select id="itemPattern">
+
+              <option>Solid</option>
+              <option>Striped</option>
+              <option>Checked</option>
+              <option>Printed</option>
+              <option>Floral</option>
+              <option>Graphic</option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <button class="gold-button full-button" type="submit">
+          Save to Wardrobe
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- TOAST -->
+
+  <div id="toast" class="toast">
+    <span>✦</span>
+    <p>Saved successfully.</p>
+  </div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
